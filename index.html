@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YZ Studio 佑想任性影像工作室</title>
+    <style>
+        /* 全域樣式設定 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-color: #fcfcfc;
+            --card-bg: #ffffff;
+            --text-primary: #111111;
+            --text-secondary: #666666;
+            --border-color: #eaeaea;
+            --max-width: 1000px;
+            --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            padding: 0 1.5rem;
+        }
+
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 4rem 0;
+        }
+
+        /* 頂部品牌標題 */
+        header {
+            margin-bottom: 4rem;
+        }
+
+        .brand {
+            margin-bottom: 1.5rem;
+        }
+
+        .brand-tag {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            color: #888888;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 0.4rem;
+        }
+
+        .brand-name {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            color: var(--text-primary);
+        }
+
+        .brand-sub {
+            font-size: 1.35rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            letter-spacing: 0.05em;
+            margin-top: 0.4rem;
+        }
+
+        .bio {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            max-width: 600px;
+        }
+
+        /* 區塊通用設定 */
+        section {
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        /* ================= 1. 照片圖庫區塊 (多圖網格) ================= */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            background-color: #eaeaea;
+            aspect-ratio: 4 / 3; /* 可改為 1/1 (正方形) 或 3/2 */
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* 圖片懸停文字說明 */
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: #ffffff;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            opacity: 1;
+        }
+
+        /* ================= 2. YouTube 影片作品區塊 ================= */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .video-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.25rem;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-3px);
+            border-color: #ccc;
+        }
+
+        /* 16:9 自動縮放容器 */
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 比例 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            background-color: #000000;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .video-card h3 {
+            font-size: 1.15rem;
+            margin-bottom: 0.4rem;
+        }
+
+        .video-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* ================= 3. 聯絡資訊與頁尾 ================= */
+        .contact-links {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s ease;
+        }
+
+        .contact-links a:hover {
+            border-color: var(--text-primary);
+        }
+
+        footer {
+            margin-top: 6rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: #a0a0a0;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- 頂部品牌標題與簡介 -->
+        <header>
+            <div class="brand">
+                <span class="brand-tag">PHOTO & VIDEO STUDIO</span>
+                <h1 class="brand-name">YZ Studio</h1>
+                <h2 class="brand-sub">佑想任性影像工作室</h2>
+            </div>
+            <p class="bio">
+                「任性，是為了堅持對影像的極致想像。」<br>
+                專注於商業攝影、品牌形象短片與人像寫真，用鏡頭捕捉最真實的細節與情緒。
+            </p>
+        </header>
+
+        <!-- 📷 區塊一：多圖相片作品集 (Photo Portfolio) -->
+        <section>
+            <h2 class="section-title">攝影作品 (Photography)</h2>
+            <div class="gallery-grid">
+                
+               
+                <!-- 照片 2 -->
+                <div class="gallery-item">
+                    <img src="images/work2.jpg" alt="人像寫真 2" loading="lazy">
+                    <div class="gallery-caption"></div>
+                </div>
+
+                <!-- 照片 3 -->
+                <div class="gallery-item">
+                    <img src="images/work3.jpg" alt="空間攝影 3" loading="lazy">
+                    <div class="gallery-caption"></div>
+                </div>
+
+                <!-- 照片 4 -->
+                <div class="gallery-item">
+                    <img src="images/work4.jpg" alt="活動紀錄 4" loading="lazy">
+                    <div class="gallery-caption"></div>
+                </div>
+
+                <!-- 照片 5 -->
+                <div class="gallery-item">
+                    <img src="images/work5.jpg" alt="商品靜物 5" loading="lazy">
+                    <div class="gallery-caption"></div>
+                </div>
+
+                <!-- 照片 6 -->
+                <div class="gallery-item">
+                    <img src="images/work6.jpg" alt="人文街拍 6" loading="lazy">
+                    <div class="gallery-caption"></div>
+                </div>
+                <div class="gallery-item"><img src="images/work7.jpg" alt="作品" loading="lazy"></div>
+ 		<div class="gallery-item"><img src="images/work8.jpg" alt="作品" loading="lazy"></div>
+		<div class="gallery-item"><img src="images/work9.jpg" alt="作品" loading="lazy"></div>
+ 		<div class="gallery-item"><img src="images/work10.jpg" alt="作品" loading="lazy"></div>
+ 		<div class="gallery-item"><img src="images/work11.jpg" alt="作品" loading="lazy"></div>
+ 		<div class="gallery-item"><img src="images/work12.jpg" alt="作品" loading="lazy"></div>
+		<div class="gallery-item"><img src="images/work13.jpg" alt="作品" loading="lazy"></div>
+ 		<div class="gallery-item"><img src="images/work14.jpg" alt="作品" loading="lazy"></div>
+		<div class="gallery-item"><img src="images/work15.jpg" alt="作品" loading="lazy"></div>
+ 		<div class="gallery-item"><img src="images/work16.jpg" alt="作品" loading="lazy"></div>
+		<div class="gallery-item"><img src="images/work17.jpg" alt="作品" loading="lazy"></div>
+ 		<div class="gallery-item"><img src="images/work18.jpg" alt="作品" loading="lazy"></div>
+ 		<div class="gallery-item"><img src="images/work19.jpg" alt="作品" loading="lazy"></div>
+ 		<div class="gallery-item"><img src="images/work20.jpg" alt="作品" loading="lazy"></div>
+		<div class="gallery-item"><img src="images/work21.jpg" alt="作品" loading="lazy"></div>
+ 		<div class="gallery-item"><img src="images/work22.jpg" alt="作品" loading="lazy"></div>
+		<div class="gallery-item"><img src="images/work23.jpg" alt="作品" loading="lazy"></div>
+ 		<div class="gallery-item"><img src="images/work24.jpg" alt="作品" loading="lazy"></div>
+		<div class="gallery-item"><img src="images/work25.jpg" alt="作品" loading="lazy"></div>
+ 		<div class="gallery-item"><img src="images/work26.jpg" alt="作品" loading="lazy"></div>
+ 		<div class="gallery-item"><img src="images/work27.jpg" alt="作品" loading="lazy"></div>
+ 		<div class="gallery-item"><img src="images/work28.jpg" alt="作品" loading="lazy"></div>
+		<div class="gallery-item"><img src="images/work29.jpg" alt="作品" loading="lazy"></div>
+ 		<div class="gallery-item"><img src="images/work30.jpg" alt="作品" loading="lazy"></div>
+		<div class="gallery-item"><img src="images/work31.jpg" alt="作品" loading="lazy"></div>
+ 		<div class="gallery-item"><img src="images/work32.jpg" alt="作品" loading="lazy"></div>
+		<div class="gallery-item"><img src="images/work33.jpg" alt="作品" loading="lazy"></div>
+ 		<div class="gallery-item"><img src="images/work34.jpg" alt="作品" loading="lazy"></div>
+ 		<div class="gallery-item"><img src="images/work35.jpg" alt="作品" loading="lazy"></div>
+ 	
+
+
+
+
+                <!-- 💡 照片很多時，只要一直複製這一行改檔名（work7.jpg, work8.jpg...）即可！ -->
+
+            </div>
+        </section>
+
+        <!-- 🎬 區塊二：YouTube 影片作品集 (Video Works) -->
+        <section>
+            <h2 class="section-title">動態影像作品 (Video Works)</h2>
+            <div class="video-grid">
+                
+                <!-- 影片 1 -->
+                <div class="video-card">
+                    <div class="video-container">
+                        <iframe 
+                            src="https://www.youtube.com/embed/BqapyHw66LU?si=ranIWsSmZzY1vjAx" 
+                            title="YouTube video player" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <h3></h3>
+                    <p></p>
+                </div>
+
+                <!-- 影片 2 -->
+                <div class="video-card">
+                    <div class="video-container">
+                        <iframe 
+                            src="https://www.youtube.com/embed/BRYPtFSpVak?si=VJA5BB5JlEM3HCAq" 
+                            title="YouTube video player" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <h3></h3>
+                    <p></p>
+                </div>
+ 		<!-- 影片 3 -->
+                <div class="video-card">
+                    <div class="video-container">
+                        <iframe 
+                            src="https://www.youtube.com/embed/oiTcUyn1SrE?si=uQl5PJDa--rU2VtM" 
+                            title="YouTube video player" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <h3></h3>
+                    <p></p>
+                </div>
+
+                <!-- 影片 4 -->
+                <div class="video-card">
+                    <div class="video-container">
+                        <iframe 
+                            src="https://www.youtube.com/embed/FRnuzdqXxiY?si=FqiUGVyRy7hq72Ko" 
+                            title="YouTube video player" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <h3></h3>
+                    <p></p>
+                </div>
+		<!-- 影片 5 -->
+                <div class="video-card">
+                    <div class="video-container">
+                        <iframe 
+                            src="https://www.youtube.com/embed/VZ4iOPvGDUU?si=TW1cB9LIyzDEZjuJ" 
+                            title="YouTube video player" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <h3></h3>
+                    <p></p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 📩 區塊三：聯絡方式 -->
+        <section>
+            <h2 class="section-title">聯絡我們 (Contact)</h2>
+            <div class="contact-links">
+                <a href="https://www.instagram.com/_yzcine_studio?igsh=MmttZWJhdnNzZzl5">Instagram</a>
+            </div>
+        </section>
+
+        <!-- 頁尾 -->
+        <footer>
+            © 2026 YZ Studio 佑想任性影像工作室. All rights reserved.
+        </footer>
+    </div>
+
+</body>
+</html>
