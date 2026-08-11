@@ -117,7 +117,7 @@
     /* ================= 專案卡片區塊 (Projects Grid) ================= */
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
       gap: 2rem;
     }
 
@@ -338,115 +338,11 @@
     </header>
 
     <div class="container">
-        <!-- 📷 區塊一：專案選單 (Project Portfolio) -->
+        <!-- 📷 區塊一：專案選單 (自動渲染) -->
         <section>
             <h2 class="section-title reveal">PROJECTS</h2>
-            <div class="projects-grid">
-                
-                <!-- 專案 1 -->
-                <div class="project-card reveal" onclick="openProjectModal('project1')">
-                    <img src="images/work1.jpg" class="project-cover" alt="2025弘文中學路跑">
-                    <div class="project-info">
-                        <div class="project-meta">
-                            <span></span>
-                            <span></span>
-                        </div>
-                        <h3 class="project-title">2025 弘文中學路跑</h3>
-                        <p class="project-desc"></p>
-                    </div>
-                </div>
-
-                <!-- 專案 2 -->
-                <div class="project-card reveal" onclick="openProjectModal('project2')">
-                    <img src="images/work16.jpg" class="project-cover" alt="2025弘文中學運動會">
-                    <div class="project-info">
-                        <div class="project-meta">
-                            <span></span>
-                            <span></span>
-                        </div>
-                        <h3 class="project-title">2025弘文中學運動會</h3>
-                        <p class="project-desc"></p>
-                    </div>
-                </div>
-
-                <!-- 專案 3 -->
-                <div class="project-card reveal" onclick="openProjectModal('project3')">
-                    <img src="images/work28.jpg" class="project-cover" alt="2025雲林四湖石頭屋音樂市集">
-                    <div class="project-info">
-                        <div class="project-meta">
-                            <span></span>
-                            <span>/span>
-                        </div>
-                        <h3 class="project-title">2025雲林四湖石頭屋音樂市集</h3>
-                        <p class="project-desc"></p>
-                    </div>
-                </div>
-              <div class="project-card reveal" onclick="openProjectModal('project4')">
-                  <img src="images/work39.jpg" class="project-cover" alt="2025惜薩克斯風音樂會">
-                  <div class="project-info">
-                      <div class="project-meta">
-                          <span></span>
-                          <span></span>
-                      </div>
-                      <h3 class="project-title"></h3>
-                      <p class="project-desc"></p>
-                  </div>
-              </div>
-              <div class="project-card reveal" onclick="openProjectModal('project5')">
-                  <img src="images/work39.jpg" class="project-cover" alt="2025微糖小貓陽明山">
-                  <div class="project-info">
-                      <div class="project-meta">
-                          <span></span>
-                          <span></span>
-                      </div>
-                      <h3 class="project-title"></h3>
-                      <p class="project-desc"></p>
-                  </div>
-              </div>
-              <div class="project-card reveal" onclick="openProjectModal('project5')">
-                  <img src="images/work39.jpg" class="project-cover" alt="2025四季管弦">
-                  <div class="project-info">
-                      <div class="project-meta">
-                          <span></span>
-                          <span></span>
-                      </div>
-                      <h3 class="project-title"></h3>
-                      <p class="project-desc"></p>
-                  </div>
-              </div>
-              <div class="project-card reveal" onclick="openProjectModal('project5')">
-                  <img src="images/work39.jpg" class="project-cover" alt="2025微糖小貓台中思達">
-                  <div class="project-info">
-                      <div class="project-meta">
-                          <span></span>
-                          <span></span>
-                      </div>
-                      <h3 class="project-title"></h3>
-                      <p class="project-desc"></p>
-                  </div>
-              </div>
-              <div class="project-card reveal" onclick="openProjectModal('project5')">
-                  <img src="images/work39.jpg" class="project-cover" alt="2026舊 夢音樂會">
-                  <div class="project-info">
-                      <div class="project-meta">
-                          <span></span>
-                          <span></span>
-                      </div>
-                      <h3 class="project-title"></h3>
-                      <p class="project-desc"></p>
-                  </div>
-              </div>
-                            <div class="project-card reveal" onclick="openProjectModal('project5')">
-                  <img src="images/work39.jpg" class="project-cover" alt="2026弘文中學班際比賽">
-                  <div class="project-info">
-                      <div class="project-meta">
-                          <span></span>
-                          <span></span>
-                      </div>
-                      <h3 class="project-title"></h3>
-                      <p class="project-desc"></p>
-                  </div>
-              </div>
+            <div class="projects-grid" id="projectsGrid">
+                <!-- 由 JavaScript 自動繪製卡片 -->
             </div>
         </section>
 
@@ -460,7 +356,7 @@
                         <iframe src="https://www.youtube.com/embed/BqapyHw66LU?si=ranIWsSmZzY1vjAx" title="弘文中學運動會幕後花絮" allowfullscreen></iframe>
                     </div>
                     <h3>【YZ形象】弘文中學運動會幕後花絮</h3>
-                    <p></p>
+                    <p>捕捉運動會背後籌備過程的真實感動瞬間與熱血紀實。</p>
                 </div>
 
                 <div class="video-card reveal">
@@ -468,7 +364,7 @@
                         <iframe src="https://www.youtube.com/embed/BRYPtFSpVak?si=VJA5BB5JlEM3HCAq" title="雲林四湖石頭屋音樂市集活動紀錄" allowfullscreen></iframe>
                     </div>
                     <h3>【YZ形象】雲林四湖石頭屋音樂市集</h3>
-                    <p></p>
+                    <p>結合在地風情、音樂演出與市集氛圍的活動精彩片段精華紀錄。</p>
                 </div>
 
                 <div class="video-card reveal">
@@ -476,22 +372,24 @@
                         <iframe src="https://www.youtube.com/embed/oiTcUyn1SrE?si=uQl5PJDa--rU2VtM" title="四季管弦活動紀錄" allowfullscreen></iframe>
                     </div>
                     <h3>【YZ形象】四季管弦活動紀錄</h3>
-                    <p></p>
+                    <p>記錄四季管弦音樂現場開幕活動與演出，展現音樂優雅細緻的影像質感。</p>
                 </div>
+
                 <div class="video-card reveal">
                     <div class="video-container">
-                        <iframe src="https://youtu.be/VZ4iOPvGDUU?si=L5J4wBIssvYGIP8_" title="2024弘文中學運動會" allowfullscreen></iframe>
+                        <iframe src="https://www.youtube.com/embed/VZ4iOPvGDUU" title="2024弘文中學運動會#sde快剪" allowfullscreen></iframe>
                     </div>
-                    <h3>【YZ形象】2024弘文中學運動會#sde快剪</h3>
-                    <p></p>
+                    <h3>【YZ形象】2024弘文中學運動會 #SDE快剪</h3>
+                    <p>同日當天快速剪輯（SDE），以節奏明快的影像再現活動熱烈氛圍。</p>
                 </div>
+
             </div>
         </section>
 
         <!-- 📩 區塊三：聯絡我們 -->
         <section class="contact-section reveal">
             <h2 style="font-family: var(--font-serif); font-size: 2rem; margin-bottom: 0.5rem;">GET IN TOUCH</h2>
-            <p style="color: var(--text-sub); margin-bottom: 1.5rem;"></p>
+            <p style="color: var(--text-sub); margin-bottom: 1.5rem;">歡迎預約平面攝影、活動紀錄或音樂會錄製</p>
             <a href="https://www.instagram.com/_yzcine_studio?igsh=MmttZWJhdnNzZzl5" target="_blank" rel="noopener noreferrer" class="contact-btn">Instagram 聯絡我們</a>
         </section>
 
@@ -521,86 +419,111 @@
     </div>
 
     <script>
-      // ================= 💡 專案與照片資料管理 =================
-      // 您可以在這裡隨時新增專案，或修改各專案包含的照片檔名
+      // ================= 💡 專案資料庫 (新增/修改專案請直接改這裡) =================
       const projectsData = {
-        
         project1: {
-          title: "2025弘文中學路跑",
-          category: "",
+          title: "2025 弘文中學路跑",
+          category: "學校活動 ｜ 平面紀錄",
           images: [
             "images/work30.jpg", "images/work31.jpg", "images/work32.jpg",
             "images/work34.jpg", "images/work35.jpg"
           ]
         },
         project2: {
-          title: "2025弘文中學運動會",
-          category: "",
+          title: "2025 弘文中學運動會",
+          category: "學校活動 ｜ 平面紀錄",
           images: [
             "images/work2.jpg", "images/work3.jpg", "images/work4.jpg",
             "images/work5.jpg"
           ]
         },
         project3: {
-          title: "2025雲林四湖石頭屋音樂市集",
-          category: "",
+          title: "2025 雲林四湖石頭屋音樂市集",
+          category: "市集與活動 ｜ 人文紀錄",
           images: [
             "images/work24.jpg", "images/work26.jpg", "images/work27.jpg",
             "images/work28.jpg", "images/work29.jpg"
           ]
-          },
+        },
         project4: {
-          title: "2025惜薩克斯風音樂會",
-          category: "",
+          title: "2025 惜薩克斯風音樂會",
+          category: "音樂會紀錄 ｜ 舞台攝影",
           images: [
             "images/work36.jpg", "images/work37.jpg", "images/work38.jpg",
             "images/work39.jpg"
           ]
-           },
+        },
         project5: {
-          title: "2025微糖小貓陽明山",
-          category: "",
+          title: "2025 微糖小貓陽明山",
+          category: "人像寫真 ｜ 戶外外拍",
           images: [
             "images/work11.jpg", "images/work19.jpg", "images/work20.jpg",
             "images/work21.jpg"
           ]
-           },
+        },
         project6: {
-          title: "2025四季管弦",
-          category: "",
+          title: "2025 四季管弦",
+          category: "音樂會紀錄 ｜ 舞台攝影",
           images: [
-            "images/work22.jpg", "images/work25.jpg", "images/work33.jpg",
-            
+            "images/work22.jpg", "images/work25.jpg", "images/work33.jpg"
           ]
-           },
+        },
         project7: {
-          title: "2025微糖小貓台中思達",
-          category: "",
+          title: "2025 微糖小貓台中思達",
+          category: "人像寫真 ｜ 活動紀錄",
           images: [
             "images/work12.jpg", "images/work13.jpg", "images/work14.jpg",
             "images/work15.jpg"
           ]
-         
-    
-           },
+        },
         project10: {
-          title: "2026舊 夢音樂會",
-          category: "",
+          title: "2026 舊夢音樂會",
+          category: "音樂會紀錄 ｜ 舞台攝影",
           images: [
-            "images/work10.jpg", "images/work8.jpg", "images/work9.jpg",
-            
+            "images/work10.jpg", "images/work8.jpg", "images/work9.jpg"
           ]
-           },
+        },
         project11: {
-          title: "2026弘文中學班際比賽",
-          category: "",
+          title: "2026 弘文中學班際比賽",
+          category: "學校活動 ｜ 運動賽事",
           images: [
-            "images/work7.jpg",
+            "images/work7.jpg"
           ]
         }
       };
 
-      // ================= 1. 專案彈窗邏輯 (Project Modal) =================
+      // ================= 1. 自動繪製卡片到網頁上 =================
+      const projectsGrid = document.getElementById('projectsGrid');
+
+      function renderProjectCards() {
+        projectsGrid.innerHTML = '';
+        Object.keys(projectsData).forEach(key => {
+          const p = projectsData[key];
+          const coverImg = p.images[0] || 'images/work1.jpg'; // 預設拿相簿第一張當封面
+          
+          const card = document.createElement('div');
+          card.className = 'project-card reveal';
+          card.onclick = () => openProjectModal(key);
+
+          card.innerHTML = `
+            <img src="${coverImg}" class="project-cover" alt="${p.title}">
+            <div class="project-info">
+                <div class="project-meta">
+                    <span>${p.category || '專案紀錄'}</span>
+                    <span>${p.images.length} 照片</span>
+                </div>
+                <h3 class="project-title">${p.title}</h3>
+                <p class="project-desc">點擊查看此場案子的精彩影像內容</p>
+            </div>
+          `;
+          projectsGrid.appendChild(card);
+        });
+      }
+
+      // 執行繪製卡片
+      renderProjectCards();
+
+      // ================= 2. 專案彈窗邏輯 (Project Modal) =================
       const projectModal = document.getElementById('projectModal');
       const modalTitle = document.getElementById('modalTitle');
       const modalSubtitle = document.getElementById('modalSubtitle');
@@ -613,9 +536,8 @@
 
         currentProjectImages = project.images;
         modalTitle.textContent = project.title;
-        modalSubtitle.textContent = project.category;
+        modalSubtitle.textContent = project.category || '專案紀錄';
 
-        // 清空並重新生成照片牆
         modalGallery.innerHTML = '';
         currentProjectImages.forEach((src, idx) => {
           const item = document.createElement('div');
@@ -634,7 +556,7 @@
         document.body.style.overflow = '';
       }
 
-      // ================= 2. LightBox 燈箱邏輯 =================
+      // ================= 3. LightBox 燈箱邏輯 =================
       const lightbox = document.getElementById('lightbox');
       const lightboxImg = document.getElementById('lightboxImg');
       let currentPhotoIndex = 0;
@@ -676,7 +598,7 @@
         }
       });
 
-      // ================= 3. 滾動淡入動畫 =================
+      // ================= 4. 滾動淡入動畫 =================
       const reveals = document.querySelectorAll('.reveal');
       const revealObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
