@@ -9,7 +9,7 @@
   <meta name="description" content="YZ Studio 佑想任性影像工作室，提供台中及中部地區專業平面攝影、學校與企業活動紀錄、音樂會現場錄製等服務。">
   <meta name="keywords" content="YZ Studio,佑想任性影像工作室,台中平面攝影,活動紀錄,音樂會錄製,攝影師推薦">
 
-  <!-- 引入 Google 高級字體 -->
+  <!-- 引入 Google 字體 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -37,6 +37,10 @@
       line-height: 1.7;
       letter-spacing: 0.02em;
       overflow-x: hidden;
+    }
+
+    body.no-scroll {
+      overflow: hidden;
     }
 
     /* 頂部全螢幕 Hero Area */
@@ -128,13 +132,15 @@
       border-radius: 12px;
       overflow: hidden;
       cursor: pointer;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+      will-change: transform;
     }
 
-    .project-card:hover {
+    .project-card:hover, .project-card:focus-visible {
       transform: translateY(-8px);
       border-color: var(--accent-gold);
       box-shadow: 0 12px 30px rgba(212, 175, 55, 0.15);
+      outline: none;
     }
 
     .project-cover {
@@ -190,12 +196,19 @@
       border: 1px solid var(--border-color);
       border-radius: 12px;
       padding: 1.25rem;
-      transition: all 0.4s ease;
+      transition: transform 0.4s ease, border-color 0.4s ease;
+      will-change: transform;
     }
 
     .video-card:hover {
       transform: translateY(-6px);
       border-color: var(--accent-gold);
+    }
+
+    .video-card h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-main);
     }
 
     .video-container {
@@ -211,6 +224,70 @@
 
     .video-container iframe {
       position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;
+    }
+
+    /* ================= 器材介紹區塊 (Equipment Grid) ================= */
+    .equipment-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .equipment-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.75rem;
+      transition: transform 0.4s ease, border-color 0.4s ease;
+      will-change: transform;
+    }
+
+    .equipment-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--accent-gold);
+    }
+
+    .equipment-category {
+      font-size: 0.75rem;
+      color: var(--accent-gold);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+      font-weight: 600;
+    }
+
+    .equipment-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 1rem;
+    }
+
+    .equipment-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .equipment-list li {
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      margin-bottom: 0.6rem;
+      position: relative;
+      padding-left: 1.2rem;
+      line-height: 1.5;
+    }
+
+    .equipment-list li::before {
+      content: "▹";
+      position: absolute;
+      left: 0;
+      color: var(--accent-gold);
+    }
+
+    .equipment-list strong {
+      color: var(--text-main);
+      font-weight: 600;
     }
 
     /* ================= 聯絡與頁尾 ================= */
@@ -273,6 +350,7 @@
       background: rgba(255, 255, 255, 0.1); border: 1px solid var(--border-color);
       color: #fff; width: 45px; height: 45px; border-radius: 50%;
       font-size: 1.3rem; cursor: pointer; transition: all 0.3s ease;
+      display: flex; align-items: center; justify-content: center;
     }
     .modal-close:hover { background: var(--accent-gold); color: #000; }
 
@@ -320,307 +398,378 @@
     .lightbox-close { top: 25px; right: 25px; font-size: 1.4rem; }
     .lightbox-prev { left: 25px; } .lightbox-next { right: 25px; }
 
-    .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease; }
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
     .reveal.active { opacity: 1; transform: translateY(0); }
   </style>
 </head>
 <body>
 
-    <!-- 頂部滿版大氣開場 -->
-    <header class="hero reveal">
-        <span class="brand-tag">PHOTO & VIDEO STUDIO</span>
-        <h1 class="brand-name">YZ Studio</h1>
-        <h2 class="brand-sub">佑想任性影像工作室</h2>
-        <p class="bio">
-            夢想實現的開端 客製化量身訂做<br>
-            平面攝影 ｜ 活動紀錄 ｜ 音樂會錄製
-        </p>
-    </header>
+  <!-- 頂部開場 Hero Section -->
+  <header class="hero reveal">
+    <span class="brand-tag">PHOTO & VIDEO STUDIO</span>
+    <h1 class="brand-name">YZ Studio</h1>
+    <h2 class="brand-sub">佑想任性影像工作室</h2>
+    <p class="bio">
+      夢想實現的開端 客製化量身訂做<br>
+      平面攝影 ｜ 活動紀錄 ｜ 音樂會錄製
+    </p>
+  </header>
 
-    <div class="container">
-        <!-- 📷 區塊一：專案選單 (自動渲染) -->
-        <section>
-            <h2 class="section-title reveal">PROJECTS</h2>
-            <div class="projects-grid" id="projectsGrid">
-                <!-- 由 JavaScript 自動繪製卡片 -->
-            </div>
-        </section>
+  <main class="container">
+    <!-- 📷 區塊一：專案選單 (自動渲染) -->
+    <section>
+      <h2 class="section-title reveal">PROJECTS</h2>
+      <div class="projects-grid" id="projectsGrid">
+        <!-- JS 自動繪製卡片 -->
+      </div>
+    </section>
 
-        <!-- 🎬 區塊二：YouTube 影片作品集 -->
-        <section>
-            <h2 class="section-title reveal">VIDEO WORKS</h2>
-            <div class="video-grid">
-                
-                <div class="video-card reveal">
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/BqapyHw66LU?si=ranIWsSmZzY1vjAx" title="弘文中學運動會幕後花絮" allowfullscreen></iframe>
-                    </div>
-                    <h3>【YZ形象】弘文中學運動會幕後花絮</h3>
-                    <p></p>
-                </div>
-
-                <div class="video-card reveal">
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/BRYPtFSpVak?si=VJA5BB5JlEM3HCAq" title="雲林四湖石頭屋音樂市集活動紀錄" allowfullscreen></iframe>
-                    </div>
-                    <h3>【YZ形象】雲林四湖石頭屋音樂市集</h3>
-                    <p></p>
-                </div>
-
-                <div class="video-card reveal">
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/oiTcUyn1SrE?si=uQl5PJDa--rU2VtM" title="四季管弦活動紀錄" allowfullscreen></iframe>
-                    </div>
-                    <h3>【YZ形象】四季管弦活動紀錄</h3>
-                    <p></p>
-                </div>
-
-                <div class="video-card reveal">
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/VZ4iOPvGDUU" title="2024弘文中學運動會#sde快剪" allowfullscreen></iframe>
-                    </div>
-                    <h3>【YZ形象】2024弘文中學運動會 #SDE快剪</h3>
-                    <p></p>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- 📩 區塊三：聯絡我們 -->
-        <section class="contact-section reveal">
-            <h2 style="font-family: var(--font-serif); font-size: 2rem; margin-bottom: 0.5rem;">GET IN TOUCH</h2>
-            <p style="color: var(--text-sub); margin-bottom: 1.5rem;"></p>
-            <a href="https://www.instagram.com/_yzcine_studio?igsh=MmttZWJhdnNzZzl5" target="_blank" rel="noopener noreferrer" class="contact-btn">Instagram 聯絡我們</a>
-        </section>
-
-        <footer>© 2026 YZ Studio 佑想任性影像工作室. All rights reserved.</footer>
-    </div>
-
-    <!-- 📁 專案內容 Modal 彈窗 -->
-    <div class="project-modal" id="projectModal">
-        <div class="modal-header">
-            <div>
-                <h2 class="modal-title" id="modalTitle">專案標題</h2>
-                <div class="modal-subtitle" id="modalSubtitle">專案類別</div>
-            </div>
-            <button class="modal-close" onclick="closeProjectModal()">✕</button>
+    <!-- 🎬 區塊二：YouTube 影片作品集 -->
+    <section>
+      <h2 class="section-title reveal">VIDEO WORKS</h2>
+      <div class="video-grid">
+        
+        <div class="video-card reveal">
+          <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/BqapyHw66LU?si=ranIWsSmZzY1vjAx" title="【YZ形象】弘文中學運動會幕後花絮" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <h3>【YZ形象】弘文中學運動會幕後花絮</h3>
         </div>
-        <div class="modal-gallery" id="modalGallery">
-            <!-- 專案照片會由 JS 動態生成 -->
+
+        <div class="video-card reveal">
+          <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/BRYPtFSpVak?si=VJA5BB5JlEM3HCAq" title="【YZ形象】雲林四湖石頭屋音樂市集" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <h3>【YZ形象】雲林四湖石頭屋音樂市集</h3>
         </div>
+
+        <div class="video-card reveal">
+          <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/oiTcUyn1SrE?si=uQl5PJDa--rU2VtM" title="【YZ形象】四季管弦活動紀錄" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <h3>【YZ形象】四季管弦活動紀錄</h3>
+        </div>
+
+        <div class="video-card reveal">
+          <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/VZ4iOPvGDUU" title="【YZ形象】2024弘文中學運動會 #SDE快剪" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <h3>【YZ形象】2024弘文中學運動會 #SDE快剪</h3>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 🎥 區塊三：專業器材介紹 (EQUIPMENT) -->
+    <section>
+      <h2 class="section-title reveal">EQUIPMENT</h2>
+      <div class="equipment-grid">
+        
+        <div class="equipment-card reveal">
+          <div class="equipment-category">Camera Bodies</div>
+          <h3 class="equipment-title">專業機身陣容</h3>
+          <ul class="equipment-list">
+            <li><strong>Sony FX3</strong>（4K 120p / Cinema Line 電影級錄影）</li>
+            <li><strong>Sony A7 IV</strong>（3300萬畫素高解析平面 / 雙卡備份）</li>
+            <li>全機支援 10-bit 4:2:2 高動態範圍紀錄與雙卡同步安全備份</li>
+          </ul>
+        </div>
+
+        <div class="equipment-card reveal">
+          <div class="equipment-category">Lenses Lineup</div>
+          <h3 class="equipment-title">大光圈頂級鏡頭</h3>
+          <ul class="equipment-list">
+            <li><strong>FE 16-35mm F2.8 GM II</strong>（超廣角大氣視覺）</li>
+            <li><strong>FE 24-70mm F2.8 GM II</strong>（全能紀實標準變焦）</li>
+            <li><strong>FE 70-200mm F2.8 GM II</strong>（音樂會舞台/遠距特寫）</li>
+            <li><strong>FE 35mm F1.4 GM / 85mm F1.8</strong>（極致人像景深）</li>
+          </ul>
+        </div>
+
+        <div class="equipment-card reveal">
+          <div class="equipment-category">Audio & Recording</div>
+          <h3 class="equipment-title">音樂會級錄音設備</h3>
+          <ul class="equipment-list">
+            <li><strong>Zoom 專業多軌錄音機</strong>（支援 32-bit float 浮點收音，絕不爆音）</li>
+            <li><strong>RØDE Wireless PRO</strong>（廣播級無線領夾麥克風）</li>
+            <li>支援音樂會現場 PA 調音台 Direct Out 線路直錄與現場環境收音</li>
+          </ul>
+        </div>
+
+        <div class="equipment-card reveal">
+          <div class="equipment-category">Stabilization & Light</div>
+          <h3 class="equipment-title">燈光與穩定系統</h3>
+          <ul class="equipment-list">
+            <li><strong>DJI RS 3 Pro</strong>（三軸專業電控穩定器，順暢運鏡）</li>
+            <li><strong>Godox V1 / V860III</strong>（TTL 高速同步閃光燈）</li>
+            <li><strong>Amaran / Godox</strong>（LED 高顯色常亮補燈組與高穩定腳架）</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 📩 區塊四：聯絡我們 -->
+    <section class="contact-section reveal">
+      <h2 style="font-family: var(--font-serif); font-size: 2rem; margin-bottom: 0.5rem;">GET IN TOUCH</h2>
+      <p style="color: var(--text-sub); margin-bottom: 1.5rem;">歡迎與我們聯繫諮詢各式影像紀錄服務</p>
+      <a href="https://www.instagram.com/_yzcine_studio?igsh=MmttZWJhdnNzZzl5" target="_blank" rel="noopener noreferrer" class="contact-btn">Instagram 聯絡我們</a>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" style="padding: 0;">
+      © 2026 YZ Studio 佑想任性影像工作室. All rights reserved.
     </div>
+  </footer>
 
-    <!-- 🔍 LightBox 放大燈箱 -->
-    <div class="lightbox" id="lightbox">
-        <button class="lightbox-close" id="lightboxClose">✕</button>
-        <button class="lightbox-prev" id="lightboxPrev">‹</button>
-        <img class="lightbox-img" id="lightboxImg" src="" alt="放大影像">
-        <button class="lightbox-next" id="lightboxNext">›</button>
+  <!-- 📁 專案內容 Modal 彈窗 -->
+  <div class="project-modal" id="projectModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-header">
+      <div>
+        <h2 class="modal-title" id="modalTitle">專案標題</h2>
+        <div class="modal-subtitle" id="modalSubtitle">專案類別</div>
+      </div>
+      <button class="modal-close" onclick="closeProjectModal()" aria-label="關閉專案彈窗">✕</button>
     </div>
+    <div class="modal-gallery" id="modalGallery">
+      <!-- 專案照片由 JS 動態生成 -->
+    </div>
+  </div>
 
-    <script>
-      // ================= 💡 專案資料庫 (新增/修改專案請直接改這裡) =================
-      const projectsData = {
-        project1: {
-          title: "2025 弘文中學路跑",
-          category: "",
-          images: [
-            "images/work30.jpg", "images/work31.jpg", "images/work32.jpg",
-            "images/work34.jpg", "images/work35.jpg", "images/work40.jpg"
-          ]
-        },
-        project2: {
-          title: "2025 弘文中學運動會",
-          category: "",
-          images: [
-            "images/work2.jpg", "images/work3.jpg", "images/work4.jpg",
-            "images/work5.jpg", "images/work41.jpg", "images/work42.jpg"
-          ]
-        },
-        project3: {
-          title: "2025 雲林四湖石頭屋音樂市集",
-          category: "",
-          images: [
-            "images/work24.jpg", "images/work26.jpg", "images/work27.jpg",
-            "images/work28.jpg", "images/work29.jpg", "images/work43.jpg"
-          ]
-        },
-        project4: {
-          title: "2025 惜薩克斯風音樂會",
-          category: "",
-          images: [
-            "images/work36.jpg", "images/work37.jpg", "images/work38.jpg",
-            "images/work39.jpg", "images/work44.jpg", "images/work45.jpg"
-          ]
-        },
-        project5: {
-          title: "2025 微糖小貓陽明山",
-          category: "",
-          images: [
-            "images/work11.jpg", "images/work19.jpg", "images/work20.jpg",
-            "images/work21.jpg", "images/work46.jpg", "images/work47.jpg"
-          ]
-        },
-        project6: {
-          title: "2025 四季管弦",
-          category: "",
-          images: [
-            "images/work22.jpg", "images/work25.jpg", "images/work33.jpg",
-            "images/work48.jpg", "images/work49.jpg", "images/work60.jpg"
-          ]
-        },
-        project7: {
-          title: "2025 微糖小貓台中思達",
-          category: "",
-          images: [
-            "images/work12.jpg", "images/work13.jpg", "images/work14.jpg",
-            "images/work15.jpg", "images/work50.jpg", "images/work51.jpg"
-          ]
-          },
-        project8: {
-          title: "2025 弘文中學畢業典禮",
-          category: "",
-          images: [
-            "images/work61.jpg", "images/work62.jpg", "images/work63.jpg",
-            "images/work64.jpg", "images/work65.jpg", "images/work66.jpg"
-          ]
-        },
-        project9: {
-          title: "2026 舊夢音樂會",
-          category: "",
-          images: [
-            "images/work10.jpg", "images/work8.jpg", "images/work9.jpg", 
-            "images/work52.jpg", "images/work53.jpg", "images/work54.jpg"
-          ]
-        },
-        project10: {
-          title: "2026 弘文中學班際比賽",
-          category: "",
-          images: [
-            "images/work7.JPG", "images/work55.jpg", "images/work56.jpg",
-            "images/work57.jpg", "images/work58.jpg", "images/work59.jpg"
-          ]
-        }
-      };
+  <!-- 🔍 LightBox 放大燈箱 -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="照片放大燈箱">
+    <button class="lightbox-close" id="lightboxClose" aria-label="關閉放大燈箱">✕</button>
+    <button class="lightbox-prev" id="lightboxPrev" aria-label="上一張照片">‹</button>
+    <img class="lightbox-img" id="lightboxImg" src="" alt="放大影像">
+    <button class="lightbox-next" id="lightboxNext" aria-label="下一張照片">›</button>
+  </div>
 
-      // ================= 1. 自動繪製卡片到網頁上 =================
-      const projectsGrid = document.getElementById('projectsGrid');
-
-      function renderProjectCards() {
-        projectsGrid.innerHTML = '';
-        Object.keys(projectsData).forEach(key => {
-          const p = projectsData[key];
-          const coverImg = p.images[0] || 'images/work1.jpg'; // 預設拿相簿第一張當封面
-          
-          const card = document.createElement('div');
-          card.className = 'project-card reveal';
-          card.onclick = () => openProjectModal(key);
-
-          card.innerHTML = `
-            <img src="${coverImg}" class="project-cover" alt="${p.title}">
-            <div class="project-info">
-                <div class="project-meta">
-                    <span>${p.category || '專案紀錄'}</span>
-                    <span>${p.images.length} 照片</span>
-                </div>
-                <h3 class="project-title">${p.title}</h3>
-                <p class="project-desc"></p>
-            </div>
-          `;
-          projectsGrid.appendChild(card);
-        });
+  <script>
+    // ================= 💡 專案資料庫 =================
+    const projectsData = {
+      project1: {
+        title: "2025 弘文中學路跑",
+        category: "活動紀錄",
+        desc: "紀錄陽光下充滿熱血與汗水的體育賽事盛況。",
+        images: [
+          "images/work30.jpg", "images/work31.jpg", "images/work32.jpg",
+          "images/work34.jpg", "images/work35.jpg", "images/work40.jpg"
+        ]
+      },
+      project2: {
+        title: "2025 弘文中學運動會",
+        category: "學校活動",
+        desc: "",
+        images: [
+          "images/work2.jpg", "images/work3.jpg", "images/work4.jpg",
+          "images/work5.jpg", "images/work41.jpg", "images/work42.jpg"
+        ]
+      },
+      project3: {
+        title: "2025 雲林四湖石頭屋音樂市集",
+        category: "市集紀錄",
+        desc: "",
+        images: [
+          "images/work24.jpg", "images/work26.jpg", "images/work27.jpg",
+          "images/work28.jpg", "images/work29.jpg", "images/work43.jpg"
+        ]
+      },
+      project4: {
+        title: "2025 惜薩克斯風音樂會",
+        category: "音樂會錄製",
+        desc: "",
+        images: [
+          "images/work36.jpg", "images/work37.jpg", "images/work38.jpg",
+          "images/work39.jpg", "images/work44.jpg", "images/work45.jpg"
+        ]
+      },
+      project5: {
+        title: "2025 微糖小貓陽明山",
+        category: "人像外拍",
+        desc: "",
+        images: [
+          "images/work11.jpg", "images/work19.jpg", "images/work20.jpg",
+          "images/work21.jpg", "images/work46.jpg", "images/work47.jpg"
+        ]
+      },
+      project6: {
+        title: "2025 四季管弦",
+        category: "音樂會紀錄",
+        desc: "",
+        images: [
+          "images/work22.jpg", "images/work25.jpg", "images/work33.jpg",
+          "images/work48.jpg", "images/work49.jpg", "images/work60.jpg"
+        ]
+      },
+      project7: {
+        title: "2025 微糖小貓台中思達",
+        category: "平面寫真",
+        desc: "",
+        images: [
+          "images/work12.jpg", "images/work13.jpg", "images/work14.jpg",
+          "images/work15.jpg", "images/work50.jpg", "images/work51.jpg"
+        ]
+      },
+      project8: {
+        title: "2025 弘文中學畢業典禮",
+        category: "畢業紀錄",
+        desc: "",
+        images: [
+          "images/work61.jpg", "images/work62.jpg", "images/work63.jpg",
+          "images/work64.jpg", "images/work65.jpg", "images/work66.jpg"
+        ]
+      },
+      project9: {
+        title: "2026 舊夢音樂會",
+        category: "現場演出",
+        desc: "",
+        images: [
+          "images/work10.jpg", "images/work8.jpg", "images/work9.jpg", 
+          "images/work52.jpg", "images/work53.jpg", "images/work54.jpg"
+        ]
+      },
+      project10: {
+        title: "2026 弘文中學班際比賽",
+        category: "校園賽事",
+        desc: "",
+        images: [
+          "images/work7.JPG", "images/work55.jpg", "images/work56.jpg",
+          "images/work57.jpg", "images/work58.jpg", "images/work59.jpg"
+        ]
       }
+    };
 
-      // 執行繪製卡片
-      renderProjectCards();
+    // ================= 1. 自動繪製卡片 =================
+    const projectsGrid = document.getElementById('projectsGrid');
 
-      // ================= 2. 專案彈窗邏輯 (Project Modal) =================
-      const projectModal = document.getElementById('projectModal');
-      const modalTitle = document.getElementById('modalTitle');
-      const modalSubtitle = document.getElementById('modalSubtitle');
-      const modalGallery = document.getElementById('modalGallery');
-      let currentProjectImages = [];
+    function renderProjectCards() {
+      projectsGrid.innerHTML = '';
+      Object.keys(projectsData).forEach(key => {
+        const p = projectsData[key];
+        const coverImg = p.images[0] || 'images/work1.jpg';
+        
+        const card = document.createElement('div');
+        card.className = 'project-card reveal';
+        card.tabIndex = 0;
+        card.onclick = () => openProjectModal(key);
+        card.onkeydown = (e) => { if (e.key === 'Enter') openProjectModal(key); };
 
-      function openProjectModal(projectId) {
-        const project = projectsData[projectId];
-        if (!project) return;
+        const categoryText = p.category || '專案紀錄';
+        const descHTML = p.desc ? `<p class="project-desc">${p.desc}</p>` : '';
 
-        currentProjectImages = project.images;
-        modalTitle.textContent = project.title;
-        modalSubtitle.textContent = project.category || '專案紀錄';
+        card.innerHTML = `
+          <img src="${coverImg}" class="project-cover" alt="${p.title}" loading="lazy">
+          <div class="project-info">
+              <div class="project-meta">
+                  <span>${categoryText}</span>
+                  <span>${p.images.length} 張照片</span>
+              </div>
+              <h3 class="project-title">${p.title}</h3>
+              ${descHTML}
+          </div>
+        `;
+        projectsGrid.appendChild(card);
+      });
+    }
 
-        modalGallery.innerHTML = '';
-        currentProjectImages.forEach((src, idx) => {
-          const item = document.createElement('div');
-          item.className = 'modal-gallery-item';
-          item.innerHTML = `<img src="${src}" alt="${project.title} - 照片 ${idx + 1}" loading="lazy">`;
-          item.onclick = () => openLightbox(idx);
-          modalGallery.appendChild(item);
-        });
+    renderProjectCards();
 
-        projectModal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-      }
+    // ================= 2. 專案彈窗邏輯 (Project Modal) =================
+    const projectModal = document.getElementById('projectModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalSubtitle = document.getElementById('modalSubtitle');
+    const modalGallery = document.getElementById('modalGallery');
+    let currentProjectImages = [];
 
-      function closeProjectModal() {
-        projectModal.classList.remove('active');
-        document.body.style.overflow = '';
-      }
+    function openProjectModal(projectId) {
+      const project = projectsData[projectId];
+      if (!project) return;
 
-      // ================= 3. LightBox 燈箱邏輯 =================
-      const lightbox = document.getElementById('lightbox');
-      const lightboxImg = document.getElementById('lightboxImg');
-      let currentPhotoIndex = 0;
+      currentProjectImages = project.images;
+      modalTitle.textContent = project.title;
+      modalSubtitle.textContent = project.category || '專案紀錄';
 
-      function openLightbox(index) {
-        currentPhotoIndex = index;
-        lightboxImg.src = currentProjectImages[currentPhotoIndex];
-        lightbox.classList.add('active');
-      }
-
-      function closeLightbox() {
-        lightbox.classList.remove('active');
-      }
-
-      function showPrevPhoto() {
-        currentPhotoIndex = (currentPhotoIndex - 1 + currentProjectImages.length) % currentProjectImages.length;
-        lightboxImg.src = currentProjectImages[currentPhotoIndex];
-      }
-
-      function showNextPhoto() {
-        currentPhotoIndex = (currentPhotoIndex + 1) % currentProjectImages.length;
-        lightboxImg.src = currentProjectImages[currentPhotoIndex];
-      }
-
-      document.getElementById('lightboxClose').onclick = closeLightbox;
-      document.getElementById('lightboxPrev').onclick = showPrevPhoto;
-      document.getElementById('lightboxNext').onclick = showNextPhoto;
-
-      lightbox.onclick = (e) => { if (e.target === lightbox) closeLightbox(); };
-
-      // 鍵盤操控
-      document.addEventListener('keydown', (e) => {
-        if (lightbox.classList.contains('active')) {
-          if (e.key === 'Escape') closeLightbox();
-          if (e.key === 'ArrowLeft') showPrevPhoto();
-          if (e.key === 'ArrowRight') showNextPhoto();
-        } else if (projectModal.classList.contains('active')) {
-          if (e.key === 'Escape') closeProjectModal();
-        }
+      modalGallery.innerHTML = '';
+      currentProjectImages.forEach((src, idx) => {
+        const item = document.createElement('div');
+        item.className = 'modal-gallery-item';
+        item.tabIndex = 0;
+        item.innerHTML = `<img src="${src}" alt="${project.title} - 照片 ${idx + 1}" loading="lazy">`;
+        item.onclick = () => openLightbox(idx);
+        item.onkeydown = (e) => { if (e.key === 'Enter') openLightbox(idx); };
+        modalGallery.appendChild(item);
       });
 
-      // ================= 4. 滾動淡入動畫 =================
-      const reveals = document.querySelectorAll('.reveal');
-      const revealObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('active');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.1 });
+      projectModal.classList.add('active');
+      document.body.classList.add('no-scroll');
+    }
 
-      reveals.forEach(reveal => revealObserver.observe(reveal));
-    </script>
+    function closeProjectModal() {
+      projectModal.classList.remove('active');
+      if (!lightbox.classList.contains('active')) {
+        document.body.classList.remove('no-scroll');
+      }
+    }
+
+    // ================= 3. LightBox 燈箱邏輯 =================
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    let currentPhotoIndex = 0;
+
+    function openLightbox(index) {
+      currentPhotoIndex = index;
+      lightboxImg.src = currentProjectImages[currentPhotoIndex];
+      lightbox.classList.add('active');
+      document.body.classList.add('no-scroll');
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      if (!projectModal.classList.contains('active')) {
+        document.body.classList.remove('no-scroll');
+      }
+    }
+
+    function showPrevPhoto() {
+      currentPhotoIndex = (currentPhotoIndex - 1 + currentProjectImages.length) % currentProjectImages.length;
+      lightboxImg.src = currentProjectImages[currentPhotoIndex];
+    }
+
+    function showNextPhoto() {
+      currentPhotoIndex = (currentPhotoIndex + 1) % currentProjectImages.length;
+      lightboxImg.src = currentProjectImages[currentPhotoIndex];
+    }
+
+    document.getElementById('lightboxClose').onclick = closeLightbox;
+    document.getElementById('lightboxPrev').onclick = showPrevPhoto;
+    document.getElementById('lightboxNext').onclick = showNextPhoto;
+
+    lightbox.onclick = (e) => { if (e.target === lightbox) closeLightbox(); };
+
+    // 鍵盤操控支援
+    document.addEventListener('keydown', (e) => {
+      if (lightbox.classList.contains('active')) {
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') showPrevPhoto();
+        if (e.key === 'ArrowRight') showNextPhoto();
+      } else if (projectModal.classList.contains('active')) {
+        if (e.key === 'Escape') closeProjectModal();
+      }
+    });
+
+    // ================= 4. 滾動淡入動畫 =================
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    reveals.forEach(reveal => revealObserver.observe(reveal));
+  </script>
 </body>
 </html>
