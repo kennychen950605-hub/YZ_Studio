@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <link rel="icon" type="image/png" href="images/logo222.png"">
+  <link rel="icon" type="image/png" href="images/logo222.png">
   <title>YZ Studio 佑想任性影像工作室｜台中平面攝影・活動紀錄・音樂會錄製</title>
   <meta name="description" content="YZ Studio 佑想任性影像工作室，提供台中及中部地區專業平面攝影、學校與企業活動紀錄、音樂會現場錄製等服務。">
   <meta name="keywords" content="YZ Studio,佑想任性影像工作室,台中平面攝影,活動紀錄,音樂會錄製,攝影師推薦">
@@ -149,21 +149,23 @@
       background-size: cover;
       background-position: center;
       opacity: 0;
-      animation: crossfade 16s infinite ease-in-out;
+      animation: crossfade 24s infinite ease-in-out; /* 調整為 24s 輪播週期 */
       filter: brightness(0.55) contrast(1.15);
     }
 
+    /* 設定 6 張背景圖片與各自延遲時間 */
     .hero-slide:nth-child(1) { background-image: url('images/page1.jpg'); animation-delay: 0s; }
     .hero-slide:nth-child(2) { background-image: url('images/page2.jpg'); animation-delay: 4s; }
     .hero-slide:nth-child(3) { background-image: url('images/page3.jpg'); animation-delay: 8s; }
     .hero-slide:nth-child(4) { background-image: url('images/page4.jpg'); animation-delay: 12s; }
-
+    .hero-slide:nth-child(5) { background-image: url('images/page5.jpg'); animation-delay: 16s; }
+    .hero-slide:nth-child(6) { background-image: url('images/page6.jpg'); animation-delay: 20s; }
 
     @keyframes crossfade {
       0% { opacity: 0; transform: scale(1); }
-      12% { opacity: 0.65; }
-      28% { opacity: 0.65; }
-      40% { opacity: 0; transform: scale(1.08); }
+      8% { opacity: 0.65; }
+      20% { opacity: 0.65; }
+      28% { opacity: 0; transform: scale(1.08); }
       100% { opacity: 0; }
     }
 
@@ -537,9 +539,9 @@
       .hero-slide { filter: brightness(0.65) contrast(1.2); }
       @keyframes crossfade {
         0% { opacity: 0; transform: scale(1); }
-        12% { opacity: 0.75; }
-        28% { opacity: 0.75; }
-        40% { opacity: 0; transform: scale(1.08); }
+        8% { opacity: 0.75; }
+        20% { opacity: 0.75; }
+        28% { opacity: 0; transform: scale(1.08); }
         100% { opacity: 0; }
       }
     }
@@ -560,9 +562,11 @@
     </div>
   </nav>
 
-  <!-- 頂部開場 Hero Section -->
+  <!-- 頂部開場 Hero Section (已擴充為 6 張背景圖) -->
   <header class="hero reveal">
     <div class="hero-slideshow">
+      <div class="hero-slide"></div>
+      <div class="hero-slide"></div>
       <div class="hero-slide"></div>
       <div class="hero-slide"></div>
       <div class="hero-slide"></div>
