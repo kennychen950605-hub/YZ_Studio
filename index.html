@@ -30,6 +30,10 @@
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
+    html {
+      scroll-behavior: smooth; /* 平滑滾動效果 */
+    }
+
     body {
       background-color: var(--bg-dark);
       color: var(--text-main);
@@ -37,13 +41,87 @@
       line-height: 1.7;
       letter-spacing: 0.02em;
       overflow-x: hidden;
+      padding-top: 70px; /* 留出頂部固定導覽列空間 */
     }
 
     body.no-scroll {
       overflow: hidden;
     }
 
-    /* ================= 頂部 Hero Area (高級作品電影感輪播背景) ================= */
+    /* ================= 頂部固定導覽列 (Top Navbar) ================= */
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 8000;
+      padding: 1.2rem 2rem;
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(15px);
+      border-bottom: 1px solid var(--border-color);
+      transition: all 0.3s ease;
+    }
+
+    .nav-container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-logo {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-main);
+      text-decoration: none;
+      letter-spacing: 0.12em;
+      transition: color 0.3s ease;
+    }
+
+    .nav-logo:hover {
+      color: var(--accent-gold);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-sub);
+      text-decoration: none;
+      font-size: 0.82rem;
+      letter-spacing: 0.15em;
+      font-weight: 600;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-gold);
+    }
+
+    /* 滑鼠懸停底線動畫 */
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0%;
+      height: 1px;
+      background-color: var(--accent-gold);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* ================= 頂部 Hero Area (作品照片電影感輪播) ================= */
     .hero {
       min-height: 75vh;
       display: flex;
@@ -55,10 +133,9 @@
       border-bottom: 1px solid var(--border-color);
       position: relative;
       overflow: hidden;
-      background-color: #050505;
+      background-color: #000;
     }
 
-    /* 輪播背景容器 */
     .hero-slideshow {
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -73,35 +150,33 @@
       background-position: center;
       opacity: 0;
       animation: crossfade 16s infinite ease-in-out;
-      filter: brightness(0.3) contrast(1.1); /* 暗化並提升對比，確保文字清晰 */
+      filter: brightness(0.55) contrast(1.15);
     }
 
-    /* 套用你的作品圖片作為背景 */
     .hero-slide:nth-child(1) { background-image: url('images/work30.jpg'); animation-delay: 0s; }
     .hero-slide:nth-child(2) { background-image: url('images/work2.jpg'); animation-delay: 4s; }
     .hero-slide:nth-child(3) { background-image: url('images/work24.jpg'); animation-delay: 8s; }
     .hero-slide:nth-child(4) { background-image: url('images/work36.jpg'); animation-delay: 12s; }
 
-    /* 漸變淡入淡出與微推鏡頭動畫 */
     @keyframes crossfade {
       0% { opacity: 0; transform: scale(1); }
-      10% { opacity: 0.35; }
-      25% { opacity: 0.35; }
-      35% { opacity: 0; transform: scale(1.06); }
+      12% { opacity: 0.65; }
+      28% { opacity: 0.65; }
+      40% { opacity: 0; transform: scale(1.08); }
       100% { opacity: 0; }
     }
 
-    /* 上層暗色壓光與暗角，提升文字讀取度 */
     .hero-overlay {
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
-      background: radial-gradient(circle at center, rgba(10,10,10,0.4) 0%, rgba(10,10,10,0.85) 100%);
+      background: radial-gradient(circle at center, rgba(10,10,10,0.5) 0%, rgba(10,10,10,0.85) 100%);
       z-index: 2;
     }
 
     .hero-content {
       position: relative;
       z-index: 3;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.9);
     }
 
     .brand-tag {
@@ -120,7 +195,7 @@
       letter-spacing: 0.05em;
       line-height: 1;
       margin-bottom: 0.5rem;
-      background: linear-gradient(180deg, #ffffff 0%, #a1a1a6 100%);
+      background: linear-gradient(180deg, #ffffff 0%, #d1d1d6 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -128,7 +203,7 @@
     .brand-sub {
       font-size: clamp(1.1rem, 2vw, 1.5rem);
       font-weight: 300;
-      color: var(--text-sub);
+      color: #e5e5ea;
       letter-spacing: 0.2em;
       margin-bottom: 2rem;
     }
@@ -136,7 +211,7 @@
     .bio {
       font-size: 1rem;
       font-weight: 300;
-      color: var(--text-sub);
+      color: #d1d1d6;
       max-width: 550px;
       line-height: 1.9;
     }
@@ -147,7 +222,7 @@
       padding: 5rem 1.5rem;
     }
 
-    section { margin-bottom: 6rem; }
+    section { margin-bottom: 6rem; scroll-margin-top: 100px; } /* 避免平滑滾動被導覽列遮擋 */
 
     .section-title {
       font-family: var(--font-serif);
@@ -448,13 +523,42 @@
 
     .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
     .reveal.active { opacity: 1; transform: translateY(0); }
+
+    /* 手機獨立適配 RWD */
+    @media (max-width: 768px) {
+      .top-nav { padding: 0.8rem 1rem; }
+      .nav-logo { font-size: 1.1rem; }
+      .nav-links { gap: 0.8rem; }
+      .nav-links a { font-size: 0.7rem; letter-spacing: 0.08em; }
+
+      .hero-slide { filter: brightness(0.65) contrast(1.2); }
+      @keyframes crossfade {
+        0% { opacity: 0; transform: scale(1); }
+        12% { opacity: 0.75; }
+        28% { opacity: 0.75; }
+        40% { opacity: 0; transform: scale(1.08); }
+        100% { opacity: 0; }
+      }
+    }
   </style>
 </head>
 <body>
 
-  <!-- 頂部開場 Hero Section (作品照片電影感輪播) -->
+  <!-- 🧭 頂部固定導覽列 -->
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="#" class="nav-logo">YZ STUDIO</a>
+      <div class="nav-links">
+        <a href="#projects">Projects</a>
+        <a href="#videos">Videos</a>
+        <a href="#equipment">Equipment</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 頂部開場 Hero Section -->
   <header class="hero reveal">
-    <!-- 背景輪播圖 -->
     <div class="hero-slideshow">
       <div class="hero-slide"></div>
       <div class="hero-slide"></div>
@@ -462,10 +566,8 @@
       <div class="hero-slide"></div>
     </div>
     
-    <!-- 暗色保護罩 -->
     <div class="hero-overlay"></div>
 
-    <!-- 文字內容 -->
     <div class="hero-content">
       <span class="brand-tag">PHOTO & VIDEO STUDIO</span>
       <h1 class="brand-name">YZ Studio</h1>
@@ -479,7 +581,7 @@
 
   <main class="container">
     <!-- 📷 區塊一：專案選單 -->
-    <section>
+    <section id="projects">
       <h2 class="section-title reveal">PROJECTS</h2>
       <div class="projects-grid" id="projectsGrid">
         <!-- JS 自動繪製卡片 -->
@@ -487,7 +589,7 @@
     </section>
 
     <!-- 🎬 區塊二：YouTube 影片作品集 -->
-    <section>
+    <section id="videos">
       <h2 class="section-title reveal">VIDEO WORKS</h2>
       <div class="video-grid">
         
@@ -544,7 +646,7 @@
     </section>
 
     <!-- 🎥 區塊三：專業器材介紹 -->
-    <section>
+    <section id="equipment">
       <h2 class="section-title reveal">EQUIPMENT</h2>
       <div class="equipment-grid">
         
@@ -557,7 +659,7 @@
             <li><strong>Sony FX30</strong></li>
             <li><strong>Canon R6</strong></li>
             <li><strong>Sony R10</strong></li>
-            <li><strong>Canon Z50ii</strong></li>
+            <li><strong>NIKON Z50ii</strong></li>
             <li><strong>DJI Pocket 4P</strong></li>
           </ul>
         </div>
@@ -604,7 +706,7 @@
     </section>
 
     <!-- 📩 區塊四：聯絡我們 -->
-    <section class="contact-section reveal">
+    <section id="contact" class="contact-section reveal">
       <h2 style="font-family: var(--font-serif); font-size: 2rem; margin-bottom: 0.5rem;">GET IN TOUCH</h2>
       <p style="color: var(--text-sub); margin-bottom: 1.5rem;"></p>
       <a href="https://www.instagram.com/_yzcine_studio?igsh=MmttZWJhdnNzZzl5" target="_blank" rel="noopener noreferrer" class="contact-btn">Instagram 聯絡我們</a>
